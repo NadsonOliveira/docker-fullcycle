@@ -1,0 +1,23 @@
+FROM golang:1-alpine3.8 AS builder
+
+WORKDIR /usr/src/app
+
+COPY  . cycle.go.
+
+
+EXPOSE 3000
+
+
+CMD ["app"]
+
+
+FROM alpine:2.6
+
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app .
+
+EXPOSE 3000
+
+CMD ["app"]
+
